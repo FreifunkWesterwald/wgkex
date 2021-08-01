@@ -85,7 +85,8 @@ def wg_key_exchange() -> Tuple[str, int]:
     # in case we want to decide here later we want to publish it only to dedicated gateways
     gateway = "all"
     print(f"wg_key_exchange: Domain: {domain}, Key:{key}")
-
+    app = _fetch_app_config()
+    mqtt = Mqtt(app)
     mqtt.publish(f"wireguard/{domain}/{gateway}", key)
     return jsonify({"Message": "OK"}), 200
 
